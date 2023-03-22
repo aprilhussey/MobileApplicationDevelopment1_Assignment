@@ -27,11 +27,13 @@
         android:id="@+id/txtDisplay"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="" />
+        android:text=""
+        android:gravity="center"/>
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="Login" />
+
 </LinearLayout>
