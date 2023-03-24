@@ -2,6 +2,7 @@ package com.example.primaryschoolapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -28,7 +29,18 @@ public class Dashboard extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                Intent intentNotes = new Intent(Dashboard.this, Notes.class);
+                startActivity(intentNotes);
+            }
+        });
 
+        btnQuiz.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intentQuiz = new Intent(Dashboard.this, Quiz.class);
+                startActivity(intentQuiz);
             }
         });
     }

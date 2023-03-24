@@ -5,19 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Dashboard">
+    tools:context=".NewNote">
 
     <TextView
         android:id="@+id/txtUserInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="USER INFO"
         tools:layout_editor_absoluteX="176dp"
         tools:layout_editor_absoluteY="28dp" />
 
-    <Button
-        android:id="@+id/btnNewNote"
+    <EditText
+        android:id="@+id/edtNoteTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="+ Note" />
+        android:text="Title" />
+
+    <EditText
+        android:id="@+id/edtNoteBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FILLER" />
 </LinearLayout>
