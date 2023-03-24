@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
                 String strUsername = edtUsername.getText().toString();
                 String strPassword = edtPassword.getText().toString();
 
-                User u1 = new User(strUsername, strPassword);
+                //User u1 = new User(strUsername, strPassword);
 
                 if (strUsername.isEmpty() || strPassword.isEmpty())
                 {
