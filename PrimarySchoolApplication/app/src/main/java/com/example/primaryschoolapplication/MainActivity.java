@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity
                     if (strUsername.equals(strFixedUsername) && strPassword.equals(strFixedPassword))
                     {
                         txtDisplay.setText("Welcome");
-                        Intent intentDashboard = new Intent(MainActivity.this, Dashboard.class);
-                        startActivity(intentDashboard);
+                        //Intent intentDashboard = new Intent(MainActivity.this, Dashboard.class);
+                        //startActivity(intentDashboard);
                     }
                     else
                     {
