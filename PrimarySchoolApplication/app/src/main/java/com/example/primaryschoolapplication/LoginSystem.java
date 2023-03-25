@@ -4,7 +4,14 @@ import java.util.ArrayList;
 
 public class LoginSystem
 {
-    ArrayList<User> users = new ArrayList<User>();
+    ArrayList<User> users;
+    User loggedInUser;
+
+    public LoginSystem()
+    {
+        users = new ArrayList<>();
+        loggedInUser = null;
+    }
 
     // Checks if the userID entered matches one in the list,
     // then checks if the password entered matches the password
@@ -17,11 +24,17 @@ public class LoginSystem
             {
                 if (user.getPassword().equals(password))
                 {
+                    loggedInUser = user;
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    public User getLoggedInUser()
+    {
+        return loggedInUser;
     }
 
     public void saveUser(User US)
