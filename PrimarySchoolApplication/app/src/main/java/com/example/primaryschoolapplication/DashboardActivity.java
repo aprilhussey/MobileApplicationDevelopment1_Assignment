@@ -20,11 +20,13 @@ public class DashboardActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        LoginSystem.loggedInUser
+        User loggedInUser = LoginSystem.loggedInUser;
 
         txtUserInfo = findViewById(R.id.txtUserInfo);
         txtActivityTitle = findViewById(R.id.txtActivityTitle);
         btnFileStorage = findViewById(R.id.btnFileStorage);
         btnQuiz = findViewById(R.id.btnQuiz);
+
+        txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
     }
 }
