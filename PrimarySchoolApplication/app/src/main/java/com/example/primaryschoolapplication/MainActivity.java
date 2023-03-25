@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
                 if (strUserID.isEmpty() || strPassword.isEmpty())
                 {
-                    txtDisplay.setText("Username or Password is incorrect");
+                    txtDisplay.setText("UserID or Password is empty");
                 }
                 else
                 {
@@ -63,19 +63,8 @@ public class MainActivity extends AppCompatActivity
                     }
                     else
                     {
-                        txtDisplay.setText("Username or Password is incorrect");
+                        txtDisplay.setText("UserID or Password is incorrect");
                     }
-
-                    /*if (strUserID.equals(strFixedUsername) && strPassword.equals(strFixedPassword))
-                    {
-                        txtDisplay.setText("Welcome");
-                        //Intent intentDashboard = new Intent(MainActivity.this, Dashboard.class);
-                        //startActivity(intentDashboard);
-                    }
-                    else
-                    {
-                        txtDisplay.setText("Username or Password is incorrect");
-                    }*/
                 }
             }
         });
