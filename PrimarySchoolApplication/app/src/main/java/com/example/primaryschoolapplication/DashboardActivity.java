@@ -20,9 +20,7 @@ public class DashboardActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
-        Intent intent = getIntent();
-        User loggedInUser = (User) intent.getSerializableExtra("loggedInUser");
+        LoginSystem.loggedInUser
 
         txtUserInfo = findViewById(R.id.txtUserInfo);
         txtActivityTitle = findViewById(R.id.txtActivityTitle);

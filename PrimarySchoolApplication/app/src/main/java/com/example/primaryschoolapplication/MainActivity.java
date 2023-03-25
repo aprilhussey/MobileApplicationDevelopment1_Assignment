@@ -52,14 +52,13 @@ public class MainActivity extends AppCompatActivity
                     boolean loginSuccessful = loginSystem.login(strUserID, strPassword);
                     if (loginSuccessful)
                     {
-                        User loggedInUser = loginSystem.getLoggedInUser();
+                        User loggedInUser = LoginSystem.getLoggedInUser();
                         String firstName = loggedInUser.getFirstName();
                         String lastName = loggedInUser.getLastName();
 
                         txtDisplay.setText("Welcome " + firstName + " " + lastName);
 
                         Intent intentDashboard = new Intent(MainActivity.this, DashboardActivity.class);
-                        intentDashboard.putExtra("loggedInUser", loggedInUser);
                         startActivity(intentDashboard);
                     }
                     else

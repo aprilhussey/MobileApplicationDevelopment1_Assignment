@@ -1,16 +1,12 @@
 package com.example.primaryschoolapplication;
 
-import java.io.Serializable;
-
-public class User implements Serializable
+public class User
 {
-    private static final long serialVersionUID = 1L;    // Unique identifier for the class
-
-    private String userID = "";
-    private String password = "";
-    private String firstName = "";
-    private String lastName = "";
-    private String email = "";
+    private String userID;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
 
     public User(String userID, String password, String firstName, String lastName)
     {

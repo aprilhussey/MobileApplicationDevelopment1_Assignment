@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class LoginSystem
 {
     ArrayList<User> users;
-    User loggedInUser;
+    public static User loggedInUser;
 
     public LoginSystem()
     {
@@ -32,7 +32,7 @@ public class LoginSystem
         return false;
     }
 
-    public User getLoggedInUser()
+    public static User getLoggedInUser()
     {
         return loggedInUser;
     }
