@@ -6,10 +6,23 @@ public class LoginSystem
 {
     ArrayList<User> users = new ArrayList<User>();
 
-    /*public boolean run()
+    // Checks if the userID entered matches one in the list,
+    // then checks if the password entered matches the password
+    // associated with that userID. Returns a bool
+    public boolean login(String userID, String password)
     {
-        //
-    }*/
+        for (User user : users)
+        {
+            if (user.getUserID().equals(userID))
+            {
+                if (user.getPassword().equals(password))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public void saveUser(User US)
     {
