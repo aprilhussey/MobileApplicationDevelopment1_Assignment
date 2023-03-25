@@ -25,10 +25,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Creates the fixed logins from FixedLogins class
-        FixedLogins.CreateFixedLogins();
         // Creates instance of LoginSystem class
         LoginSystem loginSystem = new LoginSystem();
+        // Creates the fixed logins from FixedLogins class
+        FixedLogins.CreateFixedLogins(loginSystem);
 
         edtUserID = findViewById(R.id.edtUserID);
         edtPassword = findViewById(R.id.edtPassword);

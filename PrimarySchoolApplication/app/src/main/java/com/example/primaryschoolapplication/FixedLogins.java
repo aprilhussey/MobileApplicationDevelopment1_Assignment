@@ -2,10 +2,8 @@ package com.example.primaryschoolapplication;
 
 public class FixedLogins
 {
-    public static void CreateFixedLogins()
+    public static void CreateFixedLogins(LoginSystem loginSystem)
     {
-        LoginSystem loginSystem = new LoginSystem();
-
         User u1 = new User ("pBarker", "Pepsi4EVER", "Philippa", "Barker");
         User u2 = new User ("yHolmes", "1mBatb0y", "Yasin", "Holmes");
         User u3 = new User ("eDavison", "T1nk3rb311", "Ella", "Davison");
