@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ public class DashboardActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
         User loggedInUser = LoginSystem.loggedInUser;
 
         txtUserInfo = findViewById(R.id.txtUserInfo);
@@ -28,5 +30,25 @@ public class DashboardActivity extends AppCompatActivity
         btnQuiz = findViewById(R.id.btnQuiz);
 
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
+
+        btnFileStorage.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                //Intent intentFileStorage = new Intent(DashboardActivity.this, FileStorageActivity.class);
+                //startActivity(intentFileStorage);
+            }
+        });
+
+        btnQuiz.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                //Intent intentQuiz = new Intent(DashboardActivity.this, QuizActivity.class);
+                //startActivity(intentQuiz);
+            }
+        });
     }
 }
