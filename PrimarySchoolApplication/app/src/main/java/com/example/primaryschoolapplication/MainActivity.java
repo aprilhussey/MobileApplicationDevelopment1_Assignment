@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
 {
-    EditText edtUsername;
+    EditText edtUserID;
     EditText edtPassword;
     Button btnLogin;
     TextView txtDisplay;
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
         // Creates the fixed logins from FixedLogins.class
         FixedLogins.CreateFixedLogins();
 
-        edtUsername = findViewById(R.id.edtUsername);
+        edtUserID = findViewById(R.id.edtUserID);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
         txtDisplay = findViewById(R.id.txtDisplay);
@@ -38,18 +38,18 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                String strUsername = edtUsername.getText().toString();
+                String strUserID = edtUserID.getText().toString();
                 String strPassword = edtPassword.getText().toString();
 
                 //User u1 = new User(strUsername, strPassword);
 
-                if (strUsername.isEmpty() || strPassword.isEmpty())
+                if (strUserID.isEmpty() || strPassword.isEmpty())
                 {
                     txtDisplay.setText("Username or Password is incorrect");
                 }
                 else
                 {
-                    if (strUsername.equals(strFixedUsername) && strPassword.equals(strFixedPassword))
+                    if (strUserID.equals(strFixedUsername) && strPassword.equals(strFixedPassword))
                     {
                         txtDisplay.setText("Welcome");
                         //Intent intentDashboard = new Intent(MainActivity.this, Dashboard.class);
