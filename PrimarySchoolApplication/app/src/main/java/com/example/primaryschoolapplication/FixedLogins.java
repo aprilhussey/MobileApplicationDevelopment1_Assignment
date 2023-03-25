@@ -4,7 +4,7 @@ public class FixedLogins
 {
     public static void CreateFixedLogins()
     {
-        LoginSystem LGS = new LoginSystem();
+        LoginSystem loginSystem = new LoginSystem();
 
         User u1 = new User ("pBarker", "Pepsi4EVER", "Philippa", "Barker");
         User u2 = new User ("yHolmes", "1mBatb0y", "Yasin", "Holmes");
@@ -17,15 +17,15 @@ public class FixedLogins
         User u9 = new User ("gSingh", "boysF3RDA", "Glenn", "Singh");
         User u10 = new User ("cCastro", "cats4LIFE", "Caitlin", "Castro");
 
-        LGS.saveUser(u1);
-        LGS.saveUser(u2);
-        LGS.saveUser(u3);
-        LGS.saveUser(u4);
-        LGS.saveUser(u5);
-        LGS.saveUser(u6);
-        LGS.saveUser(u7);
-        LGS.saveUser(u8);
-        LGS.saveUser(u9);
-        LGS.saveUser(u10);
+        loginSystem.saveUser(u1);
+        loginSystem.saveUser(u2);
+        loginSystem.saveUser(u3);
+        loginSystem.saveUser(u4);
+        loginSystem.saveUser(u5);
+        loginSystem.saveUser(u6);
+        loginSystem.saveUser(u7);
+        loginSystem.saveUser(u8);
+        loginSystem.saveUser(u9);
+        loginSystem.saveUser(u10);
     }
 }

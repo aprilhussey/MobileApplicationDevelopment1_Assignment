@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity
     Button btnLogin;
     TextView txtDisplay;
 
-    String strFixedUsername = "Username";
-    String strFixedPassword = "Password";
+    //String strFixedUsername = "Username";
+    //String strFixedPassword = "Password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,8 +25,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Creates the fixed logins from FixedLogins.class
+        // Creates the fixed logins from FixedLogins class
         FixedLogins.CreateFixedLogins();
+        // Creates instance of LoginSystem class
+        LoginSystem loginSystem = new LoginSystem();
 
         edtUserID = findViewById(R.id.edtUserID);
         edtPassword = findViewById(R.id.edtPassword);
@@ -41,15 +43,25 @@ public class MainActivity extends AppCompatActivity
                 String strUserID = edtUserID.getText().toString();
                 String strPassword = edtPassword.getText().toString();
 
-                //User u1 = new User(strUsername, strPassword);
-
                 if (strUserID.isEmpty() || strPassword.isEmpty())
                 {
                     txtDisplay.setText("Username or Password is incorrect");
                 }
                 else
                 {
-                    if (strUserID.equals(strFixedUsername) && strPassword.equals(strFixedPassword))
+                    boolean loginSuccessful = loginSystem.login(strUserID, strPassword);
+                    if (loginSuccessful)
+                    {
+                        txtDisplay.setText("Welcome"); // Add firstName lastName???
+                        //Intent intentDashboard = new Intent(MainActivity.this, Dashboard.class);
+                        //startActivity(intentDashboard);
+                    }
+                    else
+                    {
+                        txtDisplay.setText("Username or Password is incorrect");
+                    }
+
+                    /*if (strUserID.equals(strFixedUsername) && strPassword.equals(strFixedPassword))
                     {
                         txtDisplay.setText("Welcome");
                         //Intent intentDashboard = new Intent(MainActivity.this, Dashboard.class);
@@ -58,7 +70,7 @@ public class MainActivity extends AppCompatActivity
                     else
                     {
                         txtDisplay.setText("Username or Password is incorrect");
-                    }
+                    }*/
                 }
             }
         });
