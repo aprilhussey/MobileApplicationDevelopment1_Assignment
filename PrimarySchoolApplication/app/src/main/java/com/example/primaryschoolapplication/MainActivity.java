@@ -55,9 +55,12 @@ public class MainActivity extends AppCompatActivity
                         User loggedInUser = loginSystem.getLoggedInUser();
                         String firstName = loggedInUser.getFirstName();
                         String lastName = loggedInUser.getLastName();
+
                         txtDisplay.setText("Welcome " + firstName + " " + lastName);
-                        //Intent intentDashboard = new Intent(MainActivity.this, Dashboard.class);
-                        //startActivity(intentDashboard);
+
+                        Intent intentDashboard = new Intent(MainActivity.this, DashboardActivity.class);
+                        intentDashboard.putExtra("loggedInUser", loggedInUser);
+                        startActivity(intentDashboard);
                     }
                     else
                     {

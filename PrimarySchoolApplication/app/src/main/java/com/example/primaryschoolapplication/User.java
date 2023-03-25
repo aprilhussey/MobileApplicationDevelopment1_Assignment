@@ -1,9 +1,11 @@
 package com.example.primaryschoolapplication;
 
-import java.util.Objects;
+import java.io.Serializable;
 
-public class User
+public class User implements Serializable
 {
+    private static final long serialVersionUID = 1L;    // Unique identifier for the class
+
     private String userID = "";
     private String password = "";
     private String firstName = "";
