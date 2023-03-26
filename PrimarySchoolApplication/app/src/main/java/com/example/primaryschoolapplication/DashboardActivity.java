@@ -36,8 +36,8 @@ public class DashboardActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                //Intent intentFileStorage = new Intent(DashboardActivity.this, FileStorageActivity.class);
-                //startActivity(intentFileStorage);
+                Intent intentFileStorage = new Intent(DashboardActivity.this, FileStorageActivity.class);
+                startActivity(intentFileStorage);
             }
         });
 

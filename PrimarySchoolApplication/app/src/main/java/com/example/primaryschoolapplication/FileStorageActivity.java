@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class FileStorageActivity extends AppCompatActivity
 {
     TextView txtUserInfo;
@@ -26,5 +28,16 @@ public class FileStorageActivity extends AppCompatActivity
         recyclerView = findViewById(R.id.recyclerView);
 
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
+
+        // Create new array list and add data to it
+        ArrayList<FileModel> fileModelArrayList = new ArrayList<FileModel>();
+        fileModelArrayList.add (new FileModel("titleTest1", "blockTest1"));
+        fileModelArrayList.add (new FileModel("titleTest2", "blockTest2"));
+
+        // Initialise adapter class and pass array list to it
+        FileAdapter fileAdapter = new FileAdapter(this, fileModelArrayList);
+
+        // Set adapter to recycler view
+        recyclerView.setAdapter(fileAdapter);
     }
 }
