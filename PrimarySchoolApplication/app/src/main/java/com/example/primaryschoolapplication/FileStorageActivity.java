@@ -17,7 +17,8 @@ public class FileStorageActivity extends AppCompatActivity
     RecyclerView recyclerView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_storage);
 
