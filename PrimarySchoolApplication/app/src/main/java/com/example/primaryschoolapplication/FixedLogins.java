@@ -14,6 +14,7 @@ public class FixedLogins
         User u8 = new User ("rDuncan", "h3ll0Rocco", "Rocco", "Duncan");
         User u9 = new User ("gSingh", "boysF3RDA", "Glenn", "Singh");
         User u10 = new User ("cCastro", "cats4LIFE", "Caitlin", "Castro");
+        User u11 = new User ("User ID", "Password", "Test", "User");
 
         loginSystem.saveUser(u1);
         loginSystem.saveUser(u2);
@@ -25,5 +26,6 @@ public class FixedLogins
         loginSystem.saveUser(u8);
         loginSystem.saveUser(u9);
         loginSystem.saveUser(u10);
+        loginSystem.saveUser(u11);
     }
 }
