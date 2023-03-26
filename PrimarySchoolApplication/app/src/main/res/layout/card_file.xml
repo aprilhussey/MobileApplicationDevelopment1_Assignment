@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/txtFileTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LOREM IPSUM" />
+
+        <TextView
+            android:id="@+id/txtFileBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="lorem ipsum" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

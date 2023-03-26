@@ -26,7 +26,5 @@ public class FileStorageActivity extends AppCompatActivity
         recyclerView = findViewById(R.id.recyclerView);
 
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));   // Arranges items in the recycler view in a vertical list
     }
 }
