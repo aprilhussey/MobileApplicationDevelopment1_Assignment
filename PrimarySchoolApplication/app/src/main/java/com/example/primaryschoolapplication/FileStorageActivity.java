@@ -34,6 +34,14 @@ public class FileStorageActivity extends AppCompatActivity
         ArrayList<FileModel> fileModelArrayList = new ArrayList<FileModel>();
         fileModelArrayList.add(new FileModel("titleTest1", "blockTest1"));
         fileModelArrayList.add(new FileModel("titleTest2", "blockTest2"));
+        fileModelArrayList.add(new FileModel("titleTest3", "blockTest3"));
+        fileModelArrayList.add(new FileModel("titleTest4", "blockTest4"));
+        fileModelArrayList.add(new FileModel("titleTest5", "blockTest5"));
+        fileModelArrayList.add(new FileModel("titleTest6", "blockTest6"));
+        fileModelArrayList.add(new FileModel("titleTest7", "blockTest7"));
+        fileModelArrayList.add(new FileModel("titleTest8", "blockTest8"));
+        fileModelArrayList.add(new FileModel("titleTest9", "blockTest9"));
+        fileModelArrayList.add(new FileModel("titleTest10", "blockTest10"));
 
         // Initialise adapter class and pass array list to it
         FileAdapter fileAdapter = new FileAdapter(this, fileModelArrayList);
