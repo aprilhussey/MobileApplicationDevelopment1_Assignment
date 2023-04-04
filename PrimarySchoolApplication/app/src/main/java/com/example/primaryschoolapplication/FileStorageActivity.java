@@ -57,6 +57,13 @@ public class FileStorageActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        setupRecyclerView();
+    }
+
     public void onCardViewClick(View view) {
         TextView txtFileTitleView = view.findViewById(R.id.txtFileTitle);
         TextView txtFileBlockView = view.findViewById(R.id.txtFileBlock);
