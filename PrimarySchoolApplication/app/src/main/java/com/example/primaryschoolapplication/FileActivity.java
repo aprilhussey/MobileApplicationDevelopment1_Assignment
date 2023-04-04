@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.io.File;
 
 public class FileActivity extends AppCompatActivity
 {
@@ -33,5 +36,29 @@ public class FileActivity extends AppCompatActivity
 
         edtFileTitle.setText(fileTitle);
         edtFileBlock.setText(fileBlock);
+    }
+
+    public void renameFile(String oldFileTitle, String newFileTitle)
+    {
+        newFileTitle = newFileTitle.replace("/", "-");
+
+        File oldFile = new File(getFilesDir(), oldFileTitle);
+        File newFile = new File(getFilesDir(), newFileTitle);
+
+        boolean renameSuccess = oldFile.renameTo(newFile);
+        if (renameSuccess)
+        {
+            Log.d("Files", "File renamed successfully");
+        }
+        else
+        {
+            Log.d("Files", "Failed to rename file");
+        }
+    }
+
+    public boolean doesFileExist(String fileTitle)
+    {
+        File file = new File(getFilesDir(), fileTitle);
+        return file.exists();
     }
 }

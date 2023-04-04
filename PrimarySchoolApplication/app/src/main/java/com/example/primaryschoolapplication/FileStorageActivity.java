@@ -3,17 +3,23 @@ package com.example.primaryschoolapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class FileStorageActivity extends AppCompatActivity
-{
+public class FileStorageActivity extends AppCompatActivity {
     TextView txtUserInfo;
     TextView txtActivityTitle;
     Button btnNewFile;
@@ -34,37 +40,24 @@ public class FileStorageActivity extends AppCompatActivity
 
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
 
-        // Create new array list and add data to it
-        ArrayList<FileModel> fileModelArrayList = new ArrayList<FileModel>();
-        fileModelArrayList.add(new FileModel("titleTest1", "blockTest1"));
-        fileModelArrayList.add(new FileModel("titleTest2", "blockTest2"));
-        fileModelArrayList.add(new FileModel("titleTest3", "blockTest3"));
-        /*fileModelArrayList.add(new FileModel("titleTest4", "blockTest4"));
-        fileModelArrayList.add(new FileModel("titleTest5", "blockTest5"));
-        fileModelArrayList.add(new FileModel("titleTest6", "blockTest6"));
-        fileModelArrayList.add(new FileModel("titleTest7", "blockTest7"));
-        fileModelArrayList.add(new FileModel("titleTest8", "blockTest8"));
-        fileModelArrayList.add(new FileModel("titleTest9", "blockTest9"));
-        fileModelArrayList.add(new FileModel("titleTest10", "blockTest10"));*/
+        String currentDate = getCurrentDate();
+        String newFileTitle = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + currentDate;
 
-        // Initialise adapter class and pass array list to it
-        FileAdapter fileAdapter = new FileAdapter(this, fileModelArrayList);
-
-        // Set adapter to recycler view
-        recyclerView.setAdapter(fileAdapter);
+        setupRecyclerView();
 
         btnNewFile.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                fileModelArrayList.add(new FileModel(loggedInUser.getFirstName() + " " + loggedInUser.getLastName(), ""));
-                recyclerView.setAdapter(fileAdapter);
+                boolean fileExists = doesFileExist(newFileTitle);
+                writeAFile(newFileTitle, "", fileExists);
+                setupRecyclerView();
             }
         });
     }
-    public void onCardViewClick(View view)
-    {
+
+    public void onCardViewClick(View view) {
         TextView txtFileTitleView = view.findViewById(R.id.txtFileTitle);
         TextView txtFileBlockView = view.findViewById(R.id.txtFileBlock);
 
@@ -72,5 +65,90 @@ public class FileStorageActivity extends AppCompatActivity
         intentFile.putExtra("fileTitle", txtFileTitleView.getText().toString());
         intentFile.putExtra("fileBlock", txtFileBlockView.getText().toString());
         startActivity(intentFile);
+    }
+
+    public void setupRecyclerView()
+    {
+        File dir = getFilesDir();
+        File[] files = dir.listFiles();
+        ArrayList<FileModel> fileModelArrayList = new ArrayList<>();    // Create new array list and add data to it
+
+        for (File file : files)
+        {
+            String fileTitle = file.getName();
+            String fileBlock = readFile(file);
+            fileModelArrayList.add(new FileModel(fileTitle, fileBlock));
+        }
+        FileAdapter fileAdapter = new FileAdapter(this, fileModelArrayList);    // Initialise adapter class and pass array list to it
+        recyclerView.setAdapter(fileAdapter);   // Set adapter to recycler view
+    }
+
+    public String readFile(File file)
+    {
+        StringBuilder block = new StringBuilder();
+        try
+        {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null)
+            {
+                block.append(line);
+                block.append("\n");
+            }
+            br.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return block.toString();
+    }
+
+    public boolean doesFileExist(String fileTitle)
+    {
+        File file = new File(getFilesDir(), fileTitle);
+        return file.exists();
+    }
+
+    public void writeAFile(String fileTitle, String fileBlock, boolean fileExists)
+    {
+        if (fileExists)
+        {
+            int counter = 1;
+            String newFileTitle = fileTitle + " (" + counter + ")";
+            while (doesFileExist(newFileTitle))
+            {
+                counter++;
+                newFileTitle = fileTitle + " (" + counter + ")";
+            }
+            fileTitle = newFileTitle;
+        }
+        FileOutputStream outputStream;
+        try
+        {
+            outputStream = openFileOutput(fileTitle, Context.MODE_PRIVATE);
+            outputStream.write(fileBlock.getBytes());
+            outputStream.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Log.e("Error", "Failed to write file: " + e.getMessage());
+        }
+    }
+
+    public void deleteAFile(String fileTitle)
+    {
+        deleteFile(fileTitle);
+    }
+
+    public String getCurrentDate()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        String date = String.format("%02d-%02d-%d", day, month, year);
+        return date;
     }
 }
