@@ -1,11 +1,15 @@
 package com.example.primaryschoolapplication;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
@@ -47,6 +51,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
+        CardView cardView;
         private final TextView txtFileTitle;
         private final TextView txtFileBlock;
 
@@ -54,8 +59,21 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
         {
             super(itemView);
 
+            cardView = itemView.findViewById(R.id.cardView);
             txtFileTitle = itemView.findViewById(R.id.txtFileTitle);
             txtFileBlock = itemView.findViewById(R.id.txtFileBlock);
+
+            cardView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    Intent intentFile = new Intent(view.getContext(), FileActivity.class);
+                    intentFile.putExtra("fileTitle", txtFileTitle.getText().toString());
+                    intentFile.putExtra("fileBlock", txtFileBlock.getText().toString());
+                    view.getContext().startActivity(intentFile);
+                }
+            });
         }
     }
 }

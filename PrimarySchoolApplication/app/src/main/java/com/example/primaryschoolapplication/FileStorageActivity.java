@@ -65,17 +65,6 @@ public class FileStorageActivity extends AppCompatActivity
         setupRecyclerView();
     }
 
-    public void onCardViewClick(View view)
-    {
-        TextView txtFileTitleView = view.findViewById(R.id.txtFileTitle);
-        TextView txtFileBlockView = view.findViewById(R.id.txtFileBlock);
-
-        Intent intentFile = new Intent(this, FileActivity.class);
-        intentFile.putExtra("fileTitle", txtFileTitleView.getText().toString());
-        intentFile.putExtra("fileBlock", txtFileBlockView.getText().toString());
-        startActivity(intentFile);
-    }
-
     public void setupRecyclerView()
     {
         File dir = getFilesDir();
