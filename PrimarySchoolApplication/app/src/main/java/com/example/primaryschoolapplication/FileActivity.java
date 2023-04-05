@@ -53,7 +53,7 @@ public class FileActivity extends AppCompatActivity
 
                 boolean fileExists = doesFileExist(newFileTitle);
                 renameFile(fileTitle, newFileTitle, fileExists);
-                //saveFile(newFileTitle, newFileBlock); // Crashes the app
+                saveFile(newFileTitle, newFileBlock);
             }
         });
     }
@@ -66,33 +66,40 @@ public class FileActivity extends AppCompatActivity
 
     public void renameFile(String oldFileTitle, String newFileTitle, boolean fileExists)
     {
-        File oldFile = new File(getFilesDir(), oldFileTitle);
-        File newFile;
-
-        if (fileExists)
+        if (oldFileTitle.equals(newFileTitle))
         {
-            int counter = 1;
-            String counterFileTitle = newFileTitle + " (" + counter + ")";
-
-            while (doesFileExist(newFileTitle))
-            {
-                counter++;
-                counterFileTitle = newFileTitle + " (" + counter + ")";
-            }
-            newFile = new File (getFilesDir(), counterFileTitle);
+            return;
         }
         else
         {
-            newFile = new File(getFilesDir(), newFileTitle);
-        }
+            File oldFile = new File(getFilesDir(), oldFileTitle);
+            File newFile;
 
-        boolean renameSuccess = oldFile.renameTo(newFile);
+            if (fileExists)
+            {
+                int counter = 1;
+                String counterFileTitle = newFileTitle + " (" + counter + ")";
 
-        if (renameSuccess)
-        {
-            Log.d("Files", "File renamed successfully");
-        } else {
-            Log.d("Files", "Failed to rename file");
+                while (doesFileExist(counterFileTitle))
+                {
+                    counter++;
+                    counterFileTitle = newFileTitle + " (" + counter + ")";
+                }
+                newFile = new File(getFilesDir(), counterFileTitle);
+            }
+            else
+            {
+                newFile = new File(getFilesDir(), newFileTitle);
+            }
+
+            boolean renameSuccess = oldFile.renameTo(newFile);
+
+            if (renameSuccess)
+            {
+                Log.d("Files", "File renamed successfully");
+            } else {
+                Log.d("Files", "Failed to rename file");
+            }
         }
     }
 

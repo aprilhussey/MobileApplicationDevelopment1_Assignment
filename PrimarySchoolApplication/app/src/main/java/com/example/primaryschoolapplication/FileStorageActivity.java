@@ -19,7 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class FileStorageActivity extends AppCompatActivity {
+public class FileStorageActivity extends AppCompatActivity
+{
     TextView txtUserInfo;
     TextView txtActivityTitle;
     Button btnNewFile;
@@ -64,7 +65,8 @@ public class FileStorageActivity extends AppCompatActivity {
         setupRecyclerView();
     }
 
-    public void onCardViewClick(View view) {
+    public void onCardViewClick(View view)
+    {
         TextView txtFileTitleView = view.findViewById(R.id.txtFileTitle);
         TextView txtFileBlockView = view.findViewById(R.id.txtFileBlock);
 
