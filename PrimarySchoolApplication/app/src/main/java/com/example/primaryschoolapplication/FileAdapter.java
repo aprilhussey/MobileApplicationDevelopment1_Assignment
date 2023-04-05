@@ -74,6 +74,15 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
                     view.getContext().startActivity(intentFile);
                 }
             });
+
+            cardView.setOnLongClickListener(new View.OnLongClickListener()
+            {
+                @Override
+                public boolean onLongClick(View view)
+                {
+                    return false;
+                }
+            });
         }
     }
 }
