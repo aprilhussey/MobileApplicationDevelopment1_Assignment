@@ -2,7 +2,9 @@ package com.example.primaryschoolapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +23,11 @@ public class FileActivity extends AppCompatActivity
     EditText edtFileTitle;
     EditText edtFileBlock;
 
+    String fileTitle;
+    String fileBlock;
+    String newFileTitle;
+    String newFileBlock;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -37,8 +44,8 @@ public class FileActivity extends AppCompatActivity
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
 
         Intent intentFile = getIntent();
-        String fileTitle = intentFile.getStringExtra("fileTitle");
-        String fileBlock = intentFile.getStringExtra("fileBlock");
+        fileTitle = intentFile.getStringExtra("fileTitle");
+        fileBlock = intentFile.getStringExtra("fileBlock");
 
         edtFileTitle.setText(fileTitle);
         edtFileBlock.setText(fileBlock);
@@ -48,14 +55,48 @@ public class FileActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                String newFileTitle = edtFileTitle.getText().toString();
-                String newFileBlock = edtFileBlock.getText().toString();
+                newFileTitle = edtFileTitle.getText().toString();
+                newFileBlock = edtFileBlock.getText().toString();
 
                 boolean fileExists = doesFileExist(newFileTitle);
                 renameFile(fileTitle, newFileTitle, fileExists);
                 saveFile(newFileTitle, newFileBlock);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Context context = this;
+        newFileTitle = edtFileTitle.getText().toString();
+        newFileBlock = edtFileBlock.getText().toString();
+
+        // Create an AlertDialog
+        new AlertDialog.Builder(context)
+                .setTitle("Save Unsaved Changes?")
+                .setMessage("Would you like to save unsaved changes to this file?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        boolean fileExists = doesFileExist(newFileTitle);
+                        renameFile(fileTitle, newFileTitle, fileExists);
+                        saveFile(newFileTitle, newFileBlock);
+                        FileActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        FileActivity.super.onBackPressed();
+                    }
+                })
+                .setNeutralButton("Cancel", null)
+                .show();
     }
 
     public boolean doesFileExist(String fileTitle)
