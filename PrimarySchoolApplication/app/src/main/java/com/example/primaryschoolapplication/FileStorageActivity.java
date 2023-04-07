@@ -52,7 +52,7 @@ public class FileStorageActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 boolean fileExists = doesFileExist(newFileTitle);
-                writeAFile(newFileTitle, "", fileExists);
+                writeFile(newFileTitle, "", fileExists);
                 setupRecyclerView();
             }
         });
@@ -108,7 +108,7 @@ public class FileStorageActivity extends AppCompatActivity
         return file.exists();
     }
 
-    public void writeAFile(String fileTitle, String fileBlock, boolean fileExists)
+    public void writeFile(String fileTitle, String fileBlock, boolean fileExists)
     {
         if (fileExists)
         {
@@ -133,11 +133,6 @@ public class FileStorageActivity extends AppCompatActivity
             e.printStackTrace();
             Log.e("Error", "Failed to write file: " + e.getMessage());
         }
-    }
-
-    public void deleteAFile(String fileTitle)
-    {
-        deleteFile(fileTitle);
     }
 
     public String getCurrentDate()

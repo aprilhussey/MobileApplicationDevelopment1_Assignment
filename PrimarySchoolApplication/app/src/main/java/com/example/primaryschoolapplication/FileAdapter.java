@@ -2,15 +2,21 @@ package com.example.primaryschoolapplication;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
@@ -40,6 +46,36 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
         FileModel model = fileModelArrayList.get(position);
         holder.txtFileTitle.setText(model.getFileTitle());
         holder.txtFileBlock.setText(model.getFileBlock());
+        // Get the title of current file
+        String fileTitle = fileModelArrayList.get(position).getFileTitle();
+
+        // Set onLongClickListener on the cardView
+        holder.cardView.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View view)
+            {
+                // Create an AlertDialog to confirm deletion
+                new AlertDialog.Builder(context)
+                        .setTitle("Delete File")
+                        .setMessage("Are you sure you want to delete the file with the title: " + fileTitle + "?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i)
+                            {
+                                // Delete the file with given title
+                                deleteFile(fileTitle);
+                                // Remove the file from the recycler view
+                                fileModelArrayList.remove(position);
+                                notifyItemRemoved(position);
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -74,15 +110,22 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
                     view.getContext().startActivity(intentFile);
                 }
             });
+        }
+    }
 
-            cardView.setOnLongClickListener(new View.OnLongClickListener()
-            {
-                @Override
-                public boolean onLongClick(View view)
-                {
-                    return false;
-                }
-            });
+    private void deleteFile(String fileTitle)
+    {
+        File dir = context.getFilesDir();
+        File file = new File(dir, fileTitle);
+        boolean deleted = file.delete();
+
+        if (deleted)
+        {
+            Toast.makeText(context, "File deleted", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(context, "File could not be deleted", Toast.LENGTH_SHORT).show();
         }
     }
 }
