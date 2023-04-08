@@ -62,19 +62,20 @@ public class FileActivity extends AppCompatActivity
                 newFileTitle = edtFileTitle.getText().toString();
                 newFileBlock = edtFileBlock.getText().toString();
 
-                boolean fileExists = doesFileExist(context, newFileTitle);
-                String newNewFileTitle = renameFile(context, fileTitle, newFileTitle, fileExists);
-                saveFile(context, newNewFileTitle, newFileBlock);
+                    boolean fileExists = doesFileExist(context, newFileTitle);
+                    String newNewFileTitle = renameFile(context, fileTitle, newFileTitle, fileExists);
+                    saveFile(context, newNewFileTitle, newFileBlock);
 
-                boolean checkFileExists = doesFileExist(context, newNewFileTitle);
-                if (checkFileExists)
-                {
-                    Toast.makeText(context, "File saved", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(context, "File could not be saved", Toast.LENGTH_SHORT).show();
-                }
+                    boolean checkFileExists = doesFileExist(context, newNewFileTitle);
+                    if (checkFileExists)
+                    {
+                        Toast.makeText(context, "File saved", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(context, "File could not be saved", Toast.LENGTH_SHORT).show();
+                    }
+
             }
         });
     }
@@ -85,42 +86,54 @@ public class FileActivity extends AppCompatActivity
         newFileTitle = edtFileTitle.getText().toString();
         newFileBlock = edtFileBlock.getText().toString();
 
-        // Create an AlertDialog
-        new AlertDialog.Builder(context)
-                .setTitle("Save Unsaved Changes?")
-                .setMessage("Would you like to save unsaved changes to this file?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i)
-                    {
-                        boolean fileExists = doesFileExist(context, newFileTitle);
-                        String newNewFileTitle = renameFile(context, fileTitle, newFileTitle, fileExists);
-                        saveFile(context, newNewFileTitle, newFileBlock);
+        Log.d("File Title: ", fileTitle);
+        Log.d("New File Title: ", newFileTitle);
+        Log.d("File Block: ", fileBlock);
+        Log.d("New File Block: ", newFileBlock);
 
-                        boolean checkFileExists = doesFileExist(context, newNewFileTitle);
-                        if (checkFileExists)
-                        {
-                            Toast.makeText(context, "File saved", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            Toast.makeText(context, "File could not be saved", Toast.LENGTH_SHORT).show();
-                        }
-
-                        FileActivity.super.onBackPressed();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i)
+        if (!fileTitle.equals(newFileTitle) || !fileBlock.equals(newFileBlock))
+        {
+            // Create an AlertDialog
+            new AlertDialog.Builder(context)
+                    .setTitle("Save Unsaved Changes?")
+                    .setMessage("Would you like to save unsaved changes to this file?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                     {
-                        FileActivity.super.onBackPressed();
-                    }
-                })
-                .setNeutralButton("Cancel", null)
-                .show();
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i)
+                        {
+                            boolean fileExists = doesFileExist(context, newFileTitle);
+                            String newNewFileTitle = renameFile(context, fileTitle, newFileTitle, fileExists);
+                            saveFile(context, newNewFileTitle, newFileBlock);
+
+                            boolean checkFileExists = doesFileExist(context, newNewFileTitle);
+                            if (checkFileExists)
+                            {
+                                Toast.makeText(context, "File saved", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(context, "File could not be saved", Toast.LENGTH_SHORT).show();
+                            }
+
+                            FileActivity.super.onBackPressed();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i)
+                        {
+                            FileActivity.super.onBackPressed();
+                        }
+                    })
+                    .setNeutralButton("Cancel", null)
+                    .show();
+        }
+        else
+        {
+            FileActivity.super.onBackPressed();
+        }
     }
 
     public static boolean doesFileExist(Context context, String fileTitle)

@@ -13,12 +13,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class QuizMarkActivity extends AppCompatActivity
 {
     Context context = this;
+    User loggedInUser;
 
     TextView txtUserInfo;
     TextView txtActivityTitle;
@@ -26,8 +31,8 @@ public class QuizMarkActivity extends AppCompatActivity
     Button btnSaveScore;
     Button btnExit;
 
-    String fileTitle;
-    String fileBlock;
+    int score;
+    int totalQuestions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,7 +40,7 @@ public class QuizMarkActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_mark);
 
-        User loggedInUser = LoginSystem.loggedInUser;
+        loggedInUser = LoginSystem.loggedInUser;
 
         txtUserInfo = findViewById(R.id.txtUserInfo);
         txtActivityTitle = findViewById(R.id.txtActivityTitle);
@@ -47,8 +52,8 @@ public class QuizMarkActivity extends AppCompatActivity
 
         // Get data from Intent
         Intent intent = getIntent();
-        int score = intent.getIntExtra("score", 0);
-        int totalQuestions = intent.getIntExtra("totalQuestions", 0);
+        score = intent.getIntExtra("score", 0);
+        totalQuestions = intent.getIntExtra("totalQuestions", 0);
         String quizName = intent.getStringExtra("quizName");
 
         txtActivityTitle.setText(quizName);
@@ -61,24 +66,7 @@ public class QuizMarkActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                // Save file
-                String currentDate = FileStorageActivity.getCurrentDate();
-                String fileTitle = txtActivityTitle.getText() + " - " + currentDate;
-                String fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
-
-                boolean fileExists = FileActivity.doesFileExist(context, fileTitle);
-                String newFileTitle = renameFile(context, fileTitle, fileExists);
-                FileActivity.saveFile(context, newFileTitle, fileBlock);
-
-                boolean checkFileExists = FileActivity.doesFileExist(context, newFileTitle);
-                if (checkFileExists)
-                {
-                    Toast.makeText(context, "Score saved", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(context, "Score could not be saved", Toast.LENGTH_SHORT).show();
-                }
+                save();
             }
         });
 
@@ -87,33 +75,115 @@ public class QuizMarkActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                String currentDate = FileStorageActivity.getCurrentDate();
+                String fileTitle = txtActivityTitle.getText() + " - " + currentDate;
+                String fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
+
+                boolean fileExists = FileActivity.doesFileExist(context, fileTitle);
+
+                if (fileExists)
+                {
+                    StringBuilder fileContent = new StringBuilder();
+                    try
+                    {
+                        FileInputStream fis = openFileInput(fileTitle);
+                        InputStreamReader isr = new InputStreamReader(fis);
+                        BufferedReader br = new BufferedReader(isr);
+
+                        String line;
+                        while ((line = br.readLine()) != null)
+                        {
+                            fileContent.append(line);
+                        }
+                        br.close();
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    if (!fileExists || !fileContent.toString().equals(fileBlock))
+                    {
+                        // Create an AlertDialog
+                        new AlertDialog.Builder(context)
+                                .setTitle("Save your Score?")
+                                .setMessage("Would you like to save your score to a file?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i)
+                                    {
+                                        save();
+
+                                        Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
+                                        intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intentDashboard);
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i)
+                                    {
+                                        Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
+                                        intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intentDashboard);
+                                    }
+                                })
+                                .setNeutralButton("Cancel", null)
+                                .show();
+                    }
+                    else
+                    {
+                        Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
+                        intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intentDashboard);
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        String currentDate = FileStorageActivity.getCurrentDate();
+        String fileTitle = txtActivityTitle.getText() + " - " + currentDate;
+        String fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
+
+        boolean fileExists = FileActivity.doesFileExist(context, fileTitle);
+
+        if (fileExists)
+        {
+            StringBuilder fileContent = new StringBuilder();
+            try
+            {
+                FileInputStream fis = openFileInput(fileTitle);
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader br = new BufferedReader(isr);
+
+                String line;
+                while ((line = br.readLine()) != null)
+                {
+                    fileContent.append(line);
+                }
+                br.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            if (!fileExists || !fileContent.toString().equals(fileBlock))
+            {
                 // Create an AlertDialog
                 new AlertDialog.Builder(context)
-                        .setTitle("Save Unsaved Changes?")
-                        .setMessage("Would you like to save unsaved changes to this file?")
+                        .setTitle("Save your Score?")
+                        .setMessage("Would you like to save your score to a file?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                         {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i)
                             {
-                                // Save file
-                                String currentDate = FileStorageActivity.getCurrentDate();
-                                String fileTitle = txtActivityTitle.getText() + " - " + currentDate;
-                                String fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
-
-                                boolean fileExists = FileActivity.doesFileExist(context, fileTitle);
-                                String newFileTitle = renameFile(context, fileTitle, fileExists);
-                                FileActivity.saveFile(context, newFileTitle, fileBlock);
-
-                                boolean checkFileExists = FileActivity.doesFileExist(context, newFileTitle);
-                                if (checkFileExists)
-                                {
-                                    Toast.makeText(context, "File saved", Toast.LENGTH_SHORT).show();
-                                }
-                                else
-                                {
-                                    Toast.makeText(context, "File could not be saved", Toast.LENGTH_SHORT).show();
-                                }
+                                save();
 
                                 Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
                                 intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -133,66 +203,13 @@ public class QuizMarkActivity extends AppCompatActivity
                         .setNeutralButton("Cancel", null)
                         .show();
             }
-        });
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        // Create an AlertDialog
-        new AlertDialog.Builder(context)
-                .setTitle("Save Unsaved Changes?")
-                .setMessage("Would you like to save unsaved changes to this file?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i)
-                    {
-                        // Get data from Intent
-                        Intent intent = getIntent();
-                        User loggedInUser = LoginSystem.loggedInUser;
-                        int score = intent.getIntExtra("score", 0);
-                        int totalQuestions = intent.getIntExtra("totalQuestions", 0);
-                        String quizName = intent.getStringExtra("quizName");
-
-                        // Save file
-                        String currentDate = FileStorageActivity.getCurrentDate();
-                        String fileTitle = txtActivityTitle.getText() + " - " + currentDate;
-                        String fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
-
-                        boolean fileExists = FileActivity.doesFileExist(context, fileTitle);
-                        String newFileTitle = renameFile(context, fileTitle, fileExists);
-                        FileActivity.saveFile(context, newFileTitle, fileBlock);
-
-                        boolean checkFileExists = FileActivity.doesFileExist(context, newFileTitle);
-                        if (checkFileExists)
-                        {
-                            Toast.makeText(context, "File saved", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            Toast.makeText(context, "File could not be saved", Toast.LENGTH_SHORT).show();
-                        }
-
-                        // Override back pressed so it does not go back to quiz questions
-                        Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
-                        intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intentDashboard);
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i)
-                    {
-                        // Override back pressed so it does not go back to quiz questions
-                        Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
-                        intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intentDashboard);
-                    }
-                })
-                .setNeutralButton("Cancel", null)
-                .show();
+            else
+            {
+                Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
+                intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentDashboard);
+            }
+        }
     }
 
     // Different version of renameFile function to one existing in FileActivity.java
@@ -229,6 +246,75 @@ public class QuizMarkActivity extends AppCompatActivity
         {
             Log.d("Files", "Failed to rename file");
             return oldFile.getName();
+        }
+    }
+
+    public void save()
+    {
+        loggedInUser = LoginSystem.loggedInUser;
+
+        // Get data from Intent
+        Intent intent = getIntent();
+        int score = intent.getIntExtra("score", 0);
+        int totalQuestions = intent.getIntExtra("totalQuestions", 0);
+
+        // Save file
+        String currentDate = FileStorageActivity.getCurrentDate();
+        String fileTitle = txtActivityTitle.getText() + " - " + currentDate;
+        String fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
+
+        boolean fileExists = FileActivity.doesFileExist(context, fileTitle);
+
+        if (fileExists)
+        {
+            StringBuilder fileContent = new StringBuilder();
+            try
+            {
+                FileInputStream fis = openFileInput(fileTitle);
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader br = new BufferedReader(isr);
+
+                String line;
+                while ((line = br.readLine()) != null)
+                {
+                    fileContent.append(line);
+                }
+                br.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            if (!fileContent.toString().equals(fileBlock))
+            {
+                String newFileTitle = renameFile(context, fileTitle, fileExists);
+                FileActivity.saveFile(context, newFileTitle, fileBlock);
+
+                boolean checkFileExists = FileActivity.doesFileExist(context, newFileTitle);
+                if (checkFileExists)
+                {
+                    Toast.makeText(context, "Score saved", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(context, "Score could not be saved", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        else
+        {
+            String newFileTitle = renameFile(context, fileTitle, fileExists);
+            FileActivity.saveFile(context, newFileTitle, fileBlock);
+
+            boolean checkFileExists = FileActivity.doesFileExist(context, newFileTitle);
+            if (checkFileExists)
+            {
+                Toast.makeText(context, "Score saved", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(context, "Score could not be saved", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
