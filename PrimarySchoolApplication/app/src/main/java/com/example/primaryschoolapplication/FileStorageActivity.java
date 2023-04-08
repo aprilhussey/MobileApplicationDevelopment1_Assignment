@@ -135,7 +135,7 @@ public class FileStorageActivity extends AppCompatActivity
         }
     }
 
-    public String getCurrentDate()
+    public static String getCurrentDate()
     {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);

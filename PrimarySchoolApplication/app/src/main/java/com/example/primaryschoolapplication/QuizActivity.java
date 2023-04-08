@@ -96,6 +96,7 @@ public class QuizActivity extends AppCompatActivity
                     Intent intentQuizMark = new Intent(QuizActivity.this, QuizMarkActivity.class);
                     intentQuizMark.putExtra("score", score);
                     intentQuizMark.putExtra("totalQuestions", questions.length);
+                    intentQuizMark.putExtra("quizName", txtActivityTitle.getText());
                     startActivity(intentQuizMark);
                 }
             }

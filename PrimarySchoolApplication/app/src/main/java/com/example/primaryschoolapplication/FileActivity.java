@@ -3,6 +3,7 @@ package com.example.primaryschoolapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,8 @@ import java.io.FileOutputStream;
 
 public class FileActivity extends AppCompatActivity
 {
+    Context context = this;
+
     TextView txtUserInfo;
     Button btnSaveFile;
     EditText edtFileTitle;
@@ -58,9 +61,9 @@ public class FileActivity extends AppCompatActivity
                 newFileTitle = edtFileTitle.getText().toString();
                 newFileBlock = edtFileBlock.getText().toString();
 
-                boolean fileExists = doesFileExist(newFileTitle);
-                renameFile(fileTitle, newFileTitle, fileExists);
-                saveFile(newFileTitle, newFileBlock);
+                boolean fileExists = doesFileExist(context, newFileTitle);
+                renameFile(context, fileTitle, newFileTitle, fileExists);
+                saveFile(context, newFileTitle, newFileBlock);
             }
         });
     }
@@ -68,7 +71,6 @@ public class FileActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        Context context = this;
         newFileTitle = edtFileTitle.getText().toString();
         newFileBlock = edtFileBlock.getText().toString();
 
@@ -81,9 +83,9 @@ public class FileActivity extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i)
                     {
-                        boolean fileExists = doesFileExist(newFileTitle);
-                        renameFile(fileTitle, newFileTitle, fileExists);
-                        saveFile(newFileTitle, newFileBlock);
+                        boolean fileExists = doesFileExist(context, newFileTitle);
+                        renameFile(context, fileTitle, newFileTitle, fileExists);
+                        saveFile(context, newFileTitle, newFileBlock);
                         FileActivity.super.onBackPressed();
                     }
                 })
@@ -99,13 +101,13 @@ public class FileActivity extends AppCompatActivity
                 .show();
     }
 
-    public boolean doesFileExist(String fileTitle)
+    public static boolean doesFileExist(Context context, String fileTitle)
     {
-        File file = new File(getFilesDir(), fileTitle);
+        File file = new File(context.getFilesDir(), fileTitle);
         return file.exists();
     }
 
-    public void renameFile(String oldFileTitle, String newFileTitle, boolean fileExists)
+    public static void renameFile(Context context, String oldFileTitle, String newFileTitle, boolean fileExists)
     {
         if (oldFileTitle.equals(newFileTitle))
         {
@@ -113,7 +115,7 @@ public class FileActivity extends AppCompatActivity
         }
         else
         {
-            File oldFile = new File(getFilesDir(), oldFileTitle);
+            File oldFile = new File(context.getFilesDir(), oldFileTitle);
             File newFile;
 
             if (fileExists)
@@ -121,16 +123,16 @@ public class FileActivity extends AppCompatActivity
                 int counter = 1;
                 String counterFileTitle = newFileTitle + " (" + counter + ")";
 
-                while (doesFileExist(counterFileTitle))
+                while (doesFileExist(context, counterFileTitle))
                 {
                     counter++;
                     counterFileTitle = newFileTitle + " (" + counter + ")";
                 }
-                newFile = new File(getFilesDir(), counterFileTitle);
+                newFile = new File(context.getFilesDir(), counterFileTitle);
             }
             else
             {
-                newFile = new File(getFilesDir(), newFileTitle);
+                newFile = new File(context.getFilesDir(), newFileTitle);
             }
 
             boolean renameSuccess = oldFile.renameTo(newFile);
@@ -144,12 +146,12 @@ public class FileActivity extends AppCompatActivity
         }
     }
 
-    public void saveFile(String fileTitle, String fileBlock)
+    public static void saveFile(Context context, String fileTitle, String fileBlock)    // Is static so that it can be used in different activities
     {
         FileOutputStream outputStream;
         try
         {
-            outputStream = openFileOutput(fileTitle, Context.MODE_PRIVATE);
+            outputStream = context.openFileOutput(fileTitle, Context.MODE_PRIVATE);
             outputStream.write(fileBlock.getBytes());
             outputStream.close();
         }

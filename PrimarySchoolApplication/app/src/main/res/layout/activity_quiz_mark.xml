@@ -28,4 +28,16 @@
         android:layout_height="wrap_content"
         android:text="Mark" />
 
+    <Button
+        android:id="@+id/btnSaveScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Score to File" />
+
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Exit to Dashboard" />
+
 </LinearLayout>
