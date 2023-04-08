@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -62,8 +63,18 @@ public class FileActivity extends AppCompatActivity
                 newFileBlock = edtFileBlock.getText().toString();
 
                 boolean fileExists = doesFileExist(context, newFileTitle);
-                renameFile(context, fileTitle, newFileTitle, fileExists);
-                saveFile(context, newFileTitle, newFileBlock);
+                String newNewFileTitle = renameFile(context, fileTitle, newFileTitle, fileExists);
+                saveFile(context, newNewFileTitle, newFileBlock);
+
+                boolean checkFileExists = doesFileExist(context, newNewFileTitle);
+                if (checkFileExists)
+                {
+                    Toast.makeText(context, "File saved", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(context, "File could not be saved", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -84,8 +95,19 @@ public class FileActivity extends AppCompatActivity
                     public void onClick(DialogInterface dialogInterface, int i)
                     {
                         boolean fileExists = doesFileExist(context, newFileTitle);
-                        renameFile(context, fileTitle, newFileTitle, fileExists);
-                        saveFile(context, newFileTitle, newFileBlock);
+                        String newNewFileTitle = renameFile(context, fileTitle, newFileTitle, fileExists);
+                        saveFile(context, newNewFileTitle, newFileBlock);
+
+                        boolean checkFileExists = doesFileExist(context, newNewFileTitle);
+                        if (checkFileExists)
+                        {
+                            Toast.makeText(context, "File saved", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(context, "File could not be saved", Toast.LENGTH_SHORT).show();
+                        }
+
                         FileActivity.super.onBackPressed();
                     }
                 })
@@ -107,11 +129,11 @@ public class FileActivity extends AppCompatActivity
         return file.exists();
     }
 
-    public static void renameFile(Context context, String oldFileTitle, String newFileTitle, boolean fileExists)
+    public static String renameFile(Context context, String oldFileTitle, String newFileTitle, boolean fileExists)
     {
         if (oldFileTitle.equals(newFileTitle))
         {
-            return;
+            return newFileTitle;
         }
         else
         {
@@ -140,8 +162,12 @@ public class FileActivity extends AppCompatActivity
             if (renameSuccess)
             {
                 Log.d("Files", "File renamed successfully");
-            } else {
+                return newFile.getName();
+            }
+            else
+            {
                 Log.d("Files", "Failed to rename file");
+                return oldFile.getName();
             }
         }
     }

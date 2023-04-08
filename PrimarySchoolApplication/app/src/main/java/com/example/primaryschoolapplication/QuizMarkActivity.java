@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -61,8 +62,18 @@ public class QuizMarkActivity extends AppCompatActivity
                 String fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
 
                 boolean fileExists = FileActivity.doesFileExist(context, fileTitle);
-                renameFile(context, fileTitle, fileExists);
-                FileActivity.saveFile(context, fileTitle, fileBlock);
+                String newFileTitle = renameFile(context, fileTitle, fileExists);
+                FileActivity.saveFile(context, newFileTitle, fileBlock);
+
+                boolean checkFileExists = FileActivity.doesFileExist(context, newFileTitle);
+                if (checkFileExists)
+                {
+                    Toast.makeText(context, "Score saved", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(context, "Score could not be saved", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -90,7 +101,7 @@ public class QuizMarkActivity extends AppCompatActivity
     }
 
     // Different version of renameFile function to one existing in FileActivity.java
-    public static void renameFile(Context context, String fileTitle, boolean fileExists)
+    public static String renameFile(Context context, String fileTitle, boolean fileExists)
     {
         File oldFile = new File(context.getFilesDir(), fileTitle);
         File newFile;
@@ -117,8 +128,12 @@ public class QuizMarkActivity extends AppCompatActivity
         if (renameSuccess)
         {
             Log.d("Files", "File renamed successfully");
-        } else {
+            return newFile.getName();
+        }
+        else
+        {
             Log.d("Files", "Failed to rename file");
+            return oldFile.getName();
         }
     }
 }
