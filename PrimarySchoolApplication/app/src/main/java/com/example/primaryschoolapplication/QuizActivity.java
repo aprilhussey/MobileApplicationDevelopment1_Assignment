@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity
 {
+    // Declare variables
     TextView txtUserInfo;
     TextView txtActivityTitle;
     TextView txtQuestion;
@@ -30,6 +31,7 @@ public class QuizActivity extends AppCompatActivity
     int currentQuestionIndex;
     int score;
 
+    // Create questions
     Question[] questions = new Question[] {
             new Question("Question 1", new String[] {"Option 1", "Option 2", "Option 3", "Option 4"}, 0),
             new Question("Question 2", new String[] {"Option 1", "Option 2", "Option 3", "Option 4"}, 0),
@@ -45,6 +47,7 @@ public class QuizActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        // Initialise variables
         User loggedInUser = LoginSystem.loggedInUser;
 
         txtUserInfo = findViewById(R.id.txtUserInfo);
@@ -57,6 +60,7 @@ public class QuizActivity extends AppCompatActivity
         rbtnOption4 = findViewById(R.id.rbtnOption4);
         btnSubmitAnswer = findViewById(R.id.btnSubmitAnswer);
 
+        // Set user info
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
 
         // Set up current question index

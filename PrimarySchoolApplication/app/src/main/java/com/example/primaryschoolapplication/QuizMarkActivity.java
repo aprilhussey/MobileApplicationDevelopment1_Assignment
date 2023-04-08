@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 
 public class QuizMarkActivity extends AppCompatActivity
 {
+    // Declare variables
     Context context = this;
     User loggedInUser;
 
@@ -40,6 +41,7 @@ public class QuizMarkActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_mark);
 
+        // Initialise variables
         loggedInUser = LoginSystem.loggedInUser;
 
         txtUserInfo = findViewById(R.id.txtUserInfo);
@@ -48,9 +50,10 @@ public class QuizMarkActivity extends AppCompatActivity
         btnSaveScore = findViewById(R.id.btnSaveScore);
         btnExit = findViewById(R.id.btnExit);
 
+        // Set user info
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
 
-        // Get data from Intent
+        // Get data from intent
         Intent intent = getIntent();
         score = intent.getIntExtra("score", 0);
         totalQuestions = intent.getIntExtra("totalQuestions", 0);

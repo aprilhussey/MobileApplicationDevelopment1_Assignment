@@ -2,6 +2,7 @@ package com.example.primaryschoolapplication;
 
 public class User
 {
+    // Declare variables
     private String userID;
     private String password;
     private String firstName;
@@ -10,6 +11,7 @@ public class User
 
     public User(String userID, String password, String firstName, String lastName)
     {
+        // Initialise variables
         this.userID = userID;
         this.password = password;
 

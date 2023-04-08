@@ -11,13 +11,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
 {
+    // Declare variables
     EditText edtUserID;
     EditText edtPassword;
     Button btnLogin;
     TextView txtDisplay;
-
-    //String strFixedUsername = "Username";
-    //String strFixedPassword = "Password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,6 +28,7 @@ public class MainActivity extends AppCompatActivity
         // Creates the fixed logins from FixedLogins class
         FixedLogins.CreateFixedLogins(loginSystem);
 
+        // Initialise variables
         edtUserID = findViewById(R.id.edtUserID);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity
 
                         txtDisplay.setText("Welcome " + firstName + " " + lastName);
 
+                        // Create intent to DashboardActivity
                         Intent intentDashboard = new Intent(MainActivity.this, DashboardActivity.class);
                         startActivity(intentDashboard);
                     }

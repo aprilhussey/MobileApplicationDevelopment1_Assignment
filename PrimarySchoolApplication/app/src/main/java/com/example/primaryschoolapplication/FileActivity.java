@@ -22,6 +22,7 @@ public class FileActivity extends AppCompatActivity
 {
     Context context = this;
 
+    // Declare variables
     TextView txtUserInfo;
     Button btnSaveFile;
     EditText edtFileTitle;
@@ -38,6 +39,7 @@ public class FileActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file);
 
+        // Initialise variables
         User loggedInUser = LoginSystem.loggedInUser;
 
         txtUserInfo = findViewById(R.id.txtUserInfo);
@@ -45,8 +47,10 @@ public class FileActivity extends AppCompatActivity
         edtFileTitle = findViewById(R.id.edtFileTitle);
         edtFileBlock = findViewById(R.id.edtFileBlock);
 
+        // Set user info
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
 
+        // Get intent data
         Intent intentFile = getIntent();
         fileTitle = intentFile.getStringExtra("fileTitle");
         fileBlock = intentFile.getStringExtra("fileBlock");

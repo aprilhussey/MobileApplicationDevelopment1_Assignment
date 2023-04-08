@@ -2,15 +2,18 @@ package com.example.primaryschoolapplication;
 
 public class FileModel
 {
+    //Declare variables
     private String fileTitle;
     private String fileBlock;
 
     public FileModel(String fileTitle, String fileBlock)
     {
+        // Initialise variables
         this.fileTitle = fileTitle;
         this.fileBlock = fileBlock;
     }
 
+    // Getter and Setter functions
     public String getFileTitle() {
         return fileTitle;
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class LoginSystem
 {
+    // Declare variables
     ArrayList<User> users;
     public static User loggedInUser;
 

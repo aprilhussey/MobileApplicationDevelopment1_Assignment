@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 public class DashboardActivity extends AppCompatActivity
 {
+    // Declare variables
     TextView txtUserInfo;
     TextView txtActivityTitle;
     Button btnFileStorage;
@@ -22,6 +23,7 @@ public class DashboardActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        // Initialise variables
         User loggedInUser = LoginSystem.loggedInUser;
 
         txtUserInfo = findViewById(R.id.txtUserInfo);
@@ -29,6 +31,7 @@ public class DashboardActivity extends AppCompatActivity
         btnFileStorage = findViewById(R.id.btnFileStorage);
         btnQuiz = findViewById(R.id.btnQuiz);
 
+        // Set user info
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
 
         btnFileStorage.setOnClickListener(new View.OnClickListener()

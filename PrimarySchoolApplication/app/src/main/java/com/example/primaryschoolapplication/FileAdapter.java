@@ -21,11 +21,13 @@ import java.util.ArrayList;
 
 public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 {
+    // Declare variables
     private final Context context;
     private final ArrayList<FileModel> fileModelArrayList;
 
     public FileAdapter(Context context, ArrayList<FileModel> fileModelArrayList)
     {
+        // Initialise variables
         this.context = context;
         this.fileModelArrayList = fileModelArrayList;
     }

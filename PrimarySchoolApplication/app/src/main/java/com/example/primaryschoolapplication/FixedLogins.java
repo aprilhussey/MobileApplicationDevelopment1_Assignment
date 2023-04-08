@@ -4,6 +4,7 @@ public class FixedLogins
 {
     public static void CreateFixedLogins(LoginSystem loginSystem)
     {
+        // Create users
         User u1 = new User ("pBarker", "Pepsi4EVER", "Philippa", "Barker");
         User u2 = new User ("yHolmes", "1mBatb0y", "Yasin", "Holmes");
         User u3 = new User ("eDavison", "T1nk3rb311", "Ella", "Davison");
@@ -16,6 +17,7 @@ public class FixedLogins
         User u10 = new User ("cCastro", "cats4LIFE", "Caitlin", "Castro");
         User u11 = new User ("User ID", "Password", "Test", "User");
 
+        // Save users
         loginSystem.saveUser(u1);
         loginSystem.saveUser(u2);
         loginSystem.saveUser(u3);

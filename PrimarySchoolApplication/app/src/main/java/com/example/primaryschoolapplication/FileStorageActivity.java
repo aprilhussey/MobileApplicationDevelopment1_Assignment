@@ -21,6 +21,7 @@ import java.util.Calendar;
 
 public class FileStorageActivity extends AppCompatActivity
 {
+    // Declare variables
     TextView txtUserInfo;
     TextView txtActivityTitle;
     Button btnNewFile;
@@ -32,6 +33,7 @@ public class FileStorageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_storage);
 
+        // Initialise variables
         User loggedInUser = LoginSystem.loggedInUser;
 
         txtUserInfo = findViewById(R.id.txtUserInfo);
@@ -39,6 +41,7 @@ public class FileStorageActivity extends AppCompatActivity
         btnNewFile = findViewById(R.id.btnNewFile);
         recyclerView = findViewById(R.id.recyclerView);
 
+        // Set user info
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
 
         String currentDate = getCurrentDate();
