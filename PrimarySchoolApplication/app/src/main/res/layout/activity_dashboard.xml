@@ -32,4 +32,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Quiz" />
+
+    <Button
+        android:id="@+id/btnDiceRoller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dice Roller" />
 </LinearLayout>

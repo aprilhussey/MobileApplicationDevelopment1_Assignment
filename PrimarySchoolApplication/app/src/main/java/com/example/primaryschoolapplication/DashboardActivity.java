@@ -17,6 +17,8 @@ public class DashboardActivity extends AppCompatActivity
     Button btnFileStorage;
     Button btnQuiz;
 
+    Button btnDiceRoller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -30,6 +32,7 @@ public class DashboardActivity extends AppCompatActivity
         txtActivityTitle = findViewById(R.id.txtActivityTitle);
         btnFileStorage = findViewById(R.id.btnFileStorage);
         btnQuiz = findViewById(R.id.btnQuiz);
+        btnDiceRoller = findViewById(R.id.btnDiceRoller);
 
         // Set user info
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
@@ -51,6 +54,16 @@ public class DashboardActivity extends AppCompatActivity
             {
                 Intent intentQuiz = new Intent(DashboardActivity.this, QuizActivity.class);
                 startActivity(intentQuiz);
+            }
+        });
+
+        btnDiceRoller.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intentDiceRoller = new Intent(DashboardActivity.this, DiceRollerActivity.class);
+                startActivity(intentDiceRoller);
             }
         });
     }
