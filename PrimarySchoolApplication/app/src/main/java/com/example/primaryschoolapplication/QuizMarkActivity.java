@@ -2,7 +2,9 @@ package com.example.primaryschoolapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +25,9 @@ public class QuizMarkActivity extends AppCompatActivity
     TextView txtQuizMark;
     Button btnSaveScore;
     Button btnExit;
+
+    String fileTitle;
+    String fileBlock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -82,11 +87,51 @@ public class QuizMarkActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                // Add popup to save??
+                // Create an AlertDialog
+                new AlertDialog.Builder(context)
+                        .setTitle("Save Unsaved Changes?")
+                        .setMessage("Would you like to save unsaved changes to this file?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i)
+                            {
+                                // Save file
+                                String currentDate = FileStorageActivity.getCurrentDate();
+                                String fileTitle = txtActivityTitle.getText() + " - " + currentDate;
+                                String fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
 
-                Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
-                intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intentDashboard);
+                                boolean fileExists = FileActivity.doesFileExist(context, fileTitle);
+                                String newFileTitle = renameFile(context, fileTitle, fileExists);
+                                FileActivity.saveFile(context, newFileTitle, fileBlock);
+
+                                boolean checkFileExists = FileActivity.doesFileExist(context, newFileTitle);
+                                if (checkFileExists)
+                                {
+                                    Toast.makeText(context, "File saved", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    Toast.makeText(context, "File could not be saved", Toast.LENGTH_SHORT).show();
+                                }
+
+                                Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
+                                intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intentDashboard);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i)
+                            {
+                                Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
+                                intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intentDashboard);
+                            }
+                        })
+                        .setNeutralButton("Cancel", null)
+                        .show();
             }
         });
     }
@@ -94,10 +139,60 @@ public class QuizMarkActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        // Override back pressed so it does not go back to quiz questions
-        Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
-        intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intentDashboard);
+        // Create an AlertDialog
+        new AlertDialog.Builder(context)
+                .setTitle("Save Unsaved Changes?")
+                .setMessage("Would you like to save unsaved changes to this file?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        // Get data from Intent
+                        Intent intent = getIntent();
+                        User loggedInUser = LoginSystem.loggedInUser;
+                        int score = intent.getIntExtra("score", 0);
+                        int totalQuestions = intent.getIntExtra("totalQuestions", 0);
+                        String quizName = intent.getStringExtra("quizName");
+
+                        // Save file
+                        String currentDate = FileStorageActivity.getCurrentDate();
+                        String fileTitle = txtActivityTitle.getText() + " - " + currentDate;
+                        String fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
+
+                        boolean fileExists = FileActivity.doesFileExist(context, fileTitle);
+                        String newFileTitle = renameFile(context, fileTitle, fileExists);
+                        FileActivity.saveFile(context, newFileTitle, fileBlock);
+
+                        boolean checkFileExists = FileActivity.doesFileExist(context, newFileTitle);
+                        if (checkFileExists)
+                        {
+                            Toast.makeText(context, "File saved", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(context, "File could not be saved", Toast.LENGTH_SHORT).show();
+                        }
+
+                        // Override back pressed so it does not go back to quiz questions
+                        Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
+                        intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intentDashboard);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        // Override back pressed so it does not go back to quiz questions
+                        Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
+                        intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intentDashboard);
+                    }
+                })
+                .setNeutralButton("Cancel", null)
+                .show();
     }
 
     // Different version of renameFile function to one existing in FileActivity.java
