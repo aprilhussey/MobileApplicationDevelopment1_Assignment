@@ -46,8 +46,8 @@ public class DashboardActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                //Intent intentQuiz = new Intent(DashboardActivity.this, QuizActivity.class);
-                //startActivity(intentQuiz);
+                Intent intentQuiz = new Intent(DashboardActivity.this, QuizActivity.class);
+                startActivity(intentQuiz);
             }
         });
     }
