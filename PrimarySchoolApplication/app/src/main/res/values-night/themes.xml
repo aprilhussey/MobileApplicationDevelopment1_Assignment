@@ -12,5 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:editTextColor">@color/pale_black</item>
+
+        <item name="android:textColorPrimary">@color/pale_black</item>
+        <item name="android:textColorSecondary">@color/pale_black</item>
+        <item name="android:textColorTertiary">@color/pale_black</item>
+        <item name="android:textColorPrimaryInverse">@color/pale_black</item>
+        <item name="android:textColorSecondaryInverse">@color/pale_black</item>
+        <item name="android:textColorTertiaryInverse">@color/pale_black</item>
     </style>
 </resources>

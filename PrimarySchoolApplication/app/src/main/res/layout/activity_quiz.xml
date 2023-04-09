@@ -60,24 +60,28 @@
             android:id="@+id/rbtnOption1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/pale_black"
             android:text="Option 1" />
 
         <RadioButton
             android:id="@+id/rbtnOption2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/pale_black"
             android:text="Option 2" />
 
         <RadioButton
             android:id="@+id/rbtnOption3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/pale_black"
             android:text="Option 3" />
 
         <RadioButton
             android:id="@+id/rbtnOption4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/pale_black"
             android:text="Option 4" />
 
     </RadioGroup>

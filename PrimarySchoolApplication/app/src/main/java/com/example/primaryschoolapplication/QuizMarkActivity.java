@@ -88,11 +88,20 @@ public class QuizMarkActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                String currentDate = FileStorageActivity.getCurrentDate();
-                fileTitle = txtActivityTitle.getText() + " - " + currentDate;
-                fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
+                if (!fileSaved)
+                {
+                    String currentDate = FileStorageActivity.getCurrentDate();
+                    fileTitle = txtActivityTitle.getText() + " - " + currentDate;
+                    fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
 
-                checkForFile(true);
+                    checkForFile(true);
+                }
+                else
+                {
+                    Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
+                    intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intentDashboard);
+                }
             }
         });
     }
@@ -100,11 +109,20 @@ public class QuizMarkActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        String currentDate = FileStorageActivity.getCurrentDate();
-        fileTitle = txtActivityTitle.getText() + " - " + currentDate;
-        fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
+        if (!fileSaved)
+        {
+            String currentDate = FileStorageActivity.getCurrentDate();
+            fileTitle = txtActivityTitle.getText() + " - " + currentDate;
+            fileBlock = loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " - " + score + "/" + totalQuestions;
 
-        checkForFile(true);
+            checkForFile(true);
+        }
+        else
+        {
+            Intent intentDashboard = new Intent(QuizMarkActivity.this, DashboardActivity.class);
+            intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intentDashboard);
+        }
     }
 
     public void checkForFile(boolean savePopup)
