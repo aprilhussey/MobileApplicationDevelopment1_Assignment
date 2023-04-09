@@ -144,7 +144,7 @@ public class FileStorageActivity extends AppCompatActivity
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String date = String.format("%02d-%02d-%d", day, month, year);
+        String date = String.format("%02d-%02d-%d", day, month + 1, year);
         return date;
     }
 }
