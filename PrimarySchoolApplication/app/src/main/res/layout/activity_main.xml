@@ -9,12 +9,24 @@
     android:background="@drawable/whiteboard_background"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/txtActivityTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginHorizontal="30dp"
+        android:text="Primary School\nStudent Portal"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textAllCaps="true" />
+
     <EditText
         android:id="@+id/edtUserID"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="User ID" />
@@ -31,11 +43,11 @@
     <TextView
         android:id="@+id/txtDisplay"
         android:layout_width="250dp"
-        android:layout_height="35dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginVertical="25dp"
         android:text=""
-        android:textSize="12sp"
+        android:textSize="16sp"
         android:gravity="center"/>
 
     <Button

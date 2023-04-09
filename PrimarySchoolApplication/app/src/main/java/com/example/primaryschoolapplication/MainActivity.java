@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
 {
     // Declare variables
+    TextView txtActivityTitle;
     EditText edtUserID;
     EditText edtPassword;
     Button btnLogin;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity
         FixedLogins.CreateFixedLogins(loginSystem);
 
         // Initialise variables
+        txtActivityTitle = findViewById(R.id.txtActivityTitle);
         edtUserID = findViewById(R.id.edtUserID);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
