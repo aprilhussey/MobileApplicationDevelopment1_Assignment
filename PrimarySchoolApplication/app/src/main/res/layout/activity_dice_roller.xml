@@ -7,4 +7,28 @@
     android:orientation="vertical"
     tools:context=".DiceRollerActivity">
 
+    <TextView
+        android:id="@+id/txtUserInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/txtActivityTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dice Roller" />
+
+    <ImageView
+        android:id="@+id/imgDie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/die6" />
+
+    <Button
+        android:id="@+id/btnRollDie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Roll Die" />
 </LinearLayout>
