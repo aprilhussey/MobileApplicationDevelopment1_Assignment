@@ -71,8 +71,10 @@ public class FileActivity extends AppCompatActivity
 
                 if (!fileSaved)
                 {
-                    boolean fileExists = doesFileExist(context, newFileTitle);
-                    String newNewFileTitle = renameFile(context, fileTitle, newFileTitle, fileExists);
+                    String newFileTitleReplace = newFileTitle.replace("/", "-").replace("\\", "-");
+
+                    boolean fileExists = doesFileExist(context, newFileTitleReplace);
+                    String newNewFileTitle = renameFile(context, fileTitle, newFileTitleReplace, fileExists);
                     saveFile(context, newNewFileTitle, newFileBlock);
 
                     boolean checkFileExists = doesFileExist(context, newNewFileTitle);
@@ -110,8 +112,10 @@ public class FileActivity extends AppCompatActivity
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i)
                             {
-                                boolean fileExists = doesFileExist(context, newFileTitle);
-                                String newNewFileTitle = renameFile(context, fileTitle, newFileTitle, fileExists);
+                                String newFileTitleReplace = newFileTitle.replace("/", "-").replace("\\", "-");
+
+                                boolean fileExists = doesFileExist(context, newFileTitleReplace);
+                                String newNewFileTitle = renameFile(context, fileTitle, newFileTitleReplace, fileExists);
                                 saveFile(context, newNewFileTitle, newFileBlock);
 
                                 boolean checkFileExists = doesFileExist(context, newNewFileTitle);

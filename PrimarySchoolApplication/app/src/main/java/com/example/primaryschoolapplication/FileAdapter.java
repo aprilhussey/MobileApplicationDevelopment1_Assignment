@@ -27,7 +27,6 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
     // Declare variables
     private final Context context;
     private final ArrayList<FileModel> fileModelArrayList;
-    RecyclerView recyclerView;
 
     public FileAdapter(Context context, ArrayList<FileModel> fileModelArrayList)
     {
