@@ -33,6 +33,14 @@
         android:textStyle="bold"
         android:textAllCaps="true" />
 
+    <ImageView
+        android:id="@+id/imgQuestion"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="25dp"
+        android:layout_gravity="center" />
+
     <TextView
         android:id="@+id/txtQuestion"
         android:layout_width="match_parent"

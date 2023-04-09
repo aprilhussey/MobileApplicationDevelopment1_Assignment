@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,6 +20,7 @@ public class QuizActivity extends AppCompatActivity
     // Declare variables
     TextView txtUserInfo;
     TextView txtActivityTitle;
+    ImageView imgQuestion;
     TextView txtQuestion;
     RadioGroup radioGroup;
     RadioButton rbtnOption1;
@@ -33,12 +35,11 @@ public class QuizActivity extends AppCompatActivity
 
     // Create questions
     Question[] questions = new Question[] {
-            new Question("Question 1", new String[] {"Option 1", "Option 2", "Option 3", "Option 4"}, 0),
-            new Question("Question 2", new String[] {"Option 1", "Option 2", "Option 3", "Option 4"}, 0),
-            new Question("Question 3", new String[] {"Option 1", "Option 2", "Option 3", "Option 4"}, 0),
-            new Question("Question 4", new String[] {"Option 1", "Option 2", "Option 3", "Option 4"}, 0),
-            new Question("Question 5", new String[] {"Option 1", "Option 2", "Option 3", "Option 4"}, 0),
-            new Question("Question 6", new String[] {"Option 1", "Option 2", "Option 3", "Option 4"}, 0),
+            new Question("1. What is the value of 7 in the number 475.6?", new String[] {"A) 7", "B) 70", "C) 0.7", "D) 7/100"}, 1),
+            new Question("2. What is the name of a quadrilateral that has one pair of parallel sides?", new String[] {"A) Square", "B) Rectangle", "C) Trapezium", "D) Rhombus"}, 2),
+            new Question("3. What is the answer to this calculation: (4 x 5) + (6 x 3) - (2 x 4)?", new String[] {"A) 14", "B) 24", "C) 34", "D) 44"}, 2),
+            new Question("4. What is the equivalent fraction to 3/4?", new String[] {"A) 6/8", "B) 9/12", "C) Both A and B", "D) Neither A nor B"}, 2),
+            new Question(R.drawable.question5, "5. What is the percentage of a circle that is shaded in this diagram?", new String[] {"A) 10%", "B) 25%", "C) 50%", "D) 75%"}, 1),
     };
 
     @Override
@@ -52,6 +53,7 @@ public class QuizActivity extends AppCompatActivity
 
         txtUserInfo = findViewById(R.id.txtUserInfo);
         txtActivityTitle = findViewById(R.id.txtActivityTitle);
+        imgQuestion = findViewById(R.id.imgQuestion);
         txtQuestion = findViewById(R.id.txtQuestion);
         radioGroup = findViewById(R.id.radioGroup);
         rbtnOption1 = findViewById(R.id.rbtnOption1);
@@ -111,6 +113,15 @@ public class QuizActivity extends AppCompatActivity
     {
         // Update views for current question
         currentQuestion = questions[currentQuestionIndex];
+        if (currentQuestion.hasImage())
+        {
+            imgQuestion.setVisibility(View.VISIBLE);
+            imgQuestion.setImageResource(currentQuestion.getQuestionImage());
+        }
+        else
+        {
+            imgQuestion.setVisibility(View.GONE);
+        }
         txtQuestion.setText(currentQuestion.getQuestionText());
         String[] answerOptions = currentQuestion.getAnswerOptions();
         rbtnOption1.setText(answerOptions[0]);
