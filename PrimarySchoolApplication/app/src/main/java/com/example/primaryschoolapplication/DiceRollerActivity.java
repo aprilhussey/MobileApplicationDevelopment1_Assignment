@@ -3,7 +3,11 @@ package com.example.primaryschoolapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,12 +41,38 @@ public class DiceRollerActivity extends AppCompatActivity
         // Set user info
         txtUserInfo.setText(loggedInUser.getUserID() + " - " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
 
+        // Load animations from anim folder
+        Animation scaleDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_down);
+        Animation scaleUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_up);
+        Animation rotate360 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate360);
+
+
+        // Create animation sets
+        AnimationSet animDownSet = new AnimationSet(true);
+        animDownSet.addAnimation(scaleDown);
+        animDownSet.addAnimation(rotate360);
+
+        AnimationSet animUpSet = new AnimationSet(true);
+        animUpSet.addAnimation(scaleUp);
+        animUpSet.addAnimation(rotate360);
+
         btnRollDie.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                rollDie();
+                imgDie.startAnimation(animDownSet);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        rollDie();
+                        imgDie.startAnimation(animUpSet);
+                    }
+                }, 1000);
             }
         });
     }
