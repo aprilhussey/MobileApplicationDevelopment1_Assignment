@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class DashboardActivity extends AppCompatActivity
@@ -14,10 +15,10 @@ public class DashboardActivity extends AppCompatActivity
     // Declare variables
     TextView txtUserInfo;
     TextView txtActivityTitle;
-    Button btnFileStorage;
-    Button btnQuiz;
+    ImageButton btnFileStorage;
+    ImageButton btnQuiz;
 
-    Button btnDiceRoller;
+    ImageButton btnDiceRoller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

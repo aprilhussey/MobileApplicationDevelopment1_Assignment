@@ -6,34 +6,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/whiteboard_background"
     tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/edtUserID"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="250dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="User ID" />
 
     <EditText
         android:id="@+id/edtPassword"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:ems="10"
         android:inputType="textPassword"
         android:text="Password" />
 
     <TextView
         android:id="@+id/txtDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:layout_marginVertical="25dp"
         android:text=""
+        android:textSize="12sp"
         android:gravity="center"/>
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/pale_black"
         android:text="Login" />
 </LinearLayout>

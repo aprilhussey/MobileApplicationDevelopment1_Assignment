@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
                         String firstName = loggedInUser.getFirstName();
                         String lastName = loggedInUser.getLastName();
 
-                        txtDisplay.setText("Welcome " + firstName + " " + lastName);
+                        txtDisplay.setText("Welcome\n" + firstName + " " + lastName);
 
                         // Create intent to DashboardActivity
                         Intent intentDashboard = new Intent(MainActivity.this, DashboardActivity.class);

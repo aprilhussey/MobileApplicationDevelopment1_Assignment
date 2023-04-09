@@ -68,7 +68,7 @@ public class QuizMarkActivity extends AppCompatActivity
         txtActivityTitle.setText(quizName);
 
         // Update views
-        txtQuizMark.setText("Final score: " + score + "/" + totalQuestions);
+        txtQuizMark.setText("SCORE\n" + score + "/" + totalQuestions);
 
         btnSaveScore.setOnClickListener(new View.OnClickListener()
         {

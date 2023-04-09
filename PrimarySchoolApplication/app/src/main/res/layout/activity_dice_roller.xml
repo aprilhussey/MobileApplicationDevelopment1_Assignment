@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/dice_roller_background"
     tools:context=".DiceRollerActivity">
 
     <TextView
@@ -12,25 +13,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:text="" />
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="30dp"
+        android:text=""
+        android:textSize="16sp"
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/txtActivityTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dice Roller" />
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginHorizontal="30dp"
+        android:text="Dice Roller"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textAllCaps="true" />
 
     <ImageView
         android:id="@+id/imgDie"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_marginVertical="100dp"
+        android:layout_marginVertical="90dp"
         android:src="@drawable/die6" />
 
     <Button
         android:id="@+id/btnRollDie"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/pale_black"
         android:text="Roll Die" />
 </LinearLayout>
