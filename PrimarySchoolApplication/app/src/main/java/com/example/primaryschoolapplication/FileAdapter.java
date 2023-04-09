@@ -16,7 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
@@ -24,6 +27,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
     // Declare variables
     private final Context context;
     private final ArrayList<FileModel> fileModelArrayList;
+    RecyclerView recyclerView;
 
     public FileAdapter(Context context, ArrayList<FileModel> fileModelArrayList)
     {
@@ -45,11 +49,11 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
     public void onBindViewHolder(@NonNull FileAdapter.ViewHolder holder, int position)
     {
         // Set data of TextViews of each card layout
-        FileModel model = fileModelArrayList.get(position);
+        FileModel model = fileModelArrayList.get(holder.getAdapterPosition());
         holder.txtFileTitle.setText(model.getFileTitle());
         holder.txtFileBlock.setText(model.getFileBlock());
         // Get the title of current file
-        String fileTitle = fileModelArrayList.get(position).getFileTitle();
+        String fileTitle = fileModelArrayList.get(holder.getAdapterPosition()).getFileTitle();
 
         // Set onLongClickListener on the cardView
         holder.cardView.setOnLongClickListener(new View.OnLongClickListener()
@@ -69,8 +73,8 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>
                                 // Delete the file with given title
                                 deleteFile(fileTitle);
                                 // Remove the file from the recycler view
-                                fileModelArrayList.remove(position);
-                                notifyItemRemoved(position);
+                                fileModelArrayList.remove(holder.getAdapterPosition());
+                                notifyItemRemoved(holder.getAdapterPosition());
                             }
                         })
                         .setNegativeButton("No", null)
